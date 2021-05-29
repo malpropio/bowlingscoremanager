@@ -52,23 +52,13 @@ public class BowlingManager {
                 if(trailingFrame.isComplete()) {
                     trailingIndex++;
                 }
-                if(currentFrame.goNext()) {
+                if(currentFrame.goNext() && (currentFrame.getIndex() + 1) < Frame.MAX_NB_FRAME) {
                     ++currentIndex;
                     transferScore(currentFrame, player.getFrame(currentIndex));
                 }
-
             }
+        } while(!player.isGameComplete());
 
-        } while(!player.isGameComplete() && currentIndex < Frame.MAX_NB_FRAME);
-
-//        String quit = null;
-//        do {
-//            try {
-//                quit = readString("");
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        } while(!quit.equals('q'));
     }
 
     private void transferScore(final Frame from, final Frame to) {

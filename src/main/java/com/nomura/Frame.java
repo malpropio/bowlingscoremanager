@@ -21,15 +21,18 @@ public class Frame {
 
     private int pinStanding = MAX_NB_PIN;
 
-    private int[] pinCounts = new int[MAX_NB_INPUT];
+    private final int[] pinCounts = new int[MAX_NB_INPUT];
 
     private int previousFrameScore = 0;
+
+    private final boolean isLast;
 
     private int score;
 
 
     public Frame(final int index) {
         this.index = index;
+        isLast = index + 1 == MAX_NB_FRAME;
     }
 
     /**
@@ -66,21 +69,17 @@ public class Frame {
             if(pinStanding > 0) {
                 pinCounts[nbInput] = pinCount;
                 pinStanding -= pinCount;
+                replenishStandingPin();
             }
             addToScore(pinCount);
             nbInput++;
         }
-//
-//
-//        if(pinStanding > 0 && !isComplete()) {
-//            pinCounts[nbInput] = pinCount;
-//            pinStanding -= pinCount;
-//        } else if(pinStanding == 0 && !isComplete()) {
-//
-//        }
+    }
 
-
-//        nbInput++;
+    private void replenishStandingPin() {
+        if(isLast && (nbInput + 1) < getMaxInputNb() && (hasStrike()|| hasSpare())) {
+            pinStanding = MAX_NB_PIN;
+        }
     }
 
     public void addToScore(final int pinCount){
