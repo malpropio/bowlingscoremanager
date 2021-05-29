@@ -1,6 +1,6 @@
 package com.nomura.player;
 
-import org.junit.jupiter.api.AfterEach;
+import com.nomura.frame.Frame;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,26 +11,45 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class DefaultPlayerTest {
 
+    private static final String NAME = "DC";
+
     private DefaultPlayer underTest;
 
     @BeforeEach
     void setUp() {
-
-    }
-
-    @AfterEach
-    void tearDown() {
+        underTest = new DefaultPlayer(NAME);
     }
 
     @Test
     void getName() {
+        // Given
+
+        // When
+        String playerName = underTest.getName();
+
+        // Then
+        assertEquals(NAME, playerName);
     }
 
     @Test
     void getFrame() {
+        // Given
+        int index = 0;
+
+        // When
+        Frame indexedFrame = underTest.getFrame(index);
+
+        // Then
+        assertEquals(index, indexedFrame.getIndex());
     }
 
     @Test
-    void isGameComplete() {
+    void isGameCompleteFalse() {
+        // Given
+
+        // When
+
+        // Then
+
     }
 }

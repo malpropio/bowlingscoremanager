@@ -15,15 +15,15 @@ public class TraditionalFrame implements Frame {
 
     private final int index;
 
+    private final int[] pinCounts = new int[MAX_NB_INPUT];
+
+    private final boolean isLast;
+
     private int nbInput = 0;
 
     private int pinStanding = MAX_NB_PIN;
 
-    private final int[] pinCounts = new int[MAX_NB_INPUT];
-
     private int previousFrameScore = 0;
-
-    private final boolean isLast;
 
     private int score;
 
