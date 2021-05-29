@@ -1,13 +1,16 @@
-package com.nomura;
+package com.nomura.player;
+
+import com.nomura.frame.TraditionalFrame;
+import com.nomura.frame.Frame;
 
 import java.util.Arrays;
 
-import static com.nomura.Frame.MAX_NB_FRAME;
+import static com.nomura.frame.Frame.MAX_NB_FRAME;
 
 /**
  * Represents a bowling player.
  */
-public class Player {
+public class DefaultPlayer implements Player {
 
     private final String name;
 
@@ -15,30 +18,25 @@ public class Player {
 
     private Frame lastFrame;
 
-    public Player(String name) {
+    public DefaultPlayer(String name) {
         this.name = name;
         for(int i = 0 ; i < MAX_NB_FRAME; i++) {
-            scoringFrames[i] = new Frame(i);
+            scoringFrames[i] = new TraditionalFrame(i);
             lastFrame = scoringFrames[i];
         }
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
-    public Frame getLastFrame() {
-        return lastFrame;
-    }
-
-    /**
-     * @param index index of the frame to return.
-     * @return Frame at that index, null if index is more than MAX_NB_FRAME
-     */
+    @Override
     public Frame getFrame(final int index) {
         return index < MAX_NB_FRAME && index >= 0 ? scoringFrames[index] : null;
     }
 
+    @Override
     public boolean isGameComplete() {
         return lastFrame.isComplete();
     }
