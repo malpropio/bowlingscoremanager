@@ -1,5 +1,8 @@
-package com.nomura;
+package com.nomura.manager;
 
+import com.nomura.frame.Frame;
+import com.nomura.player.DefaultPlayer;
+import com.nomura.player.Player;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.util.Strings;
@@ -9,16 +12,17 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- *
+ * Manages a single player bowling game.
  */
-public class BowlingManager {
+public class SinglePlayerBowlingManager implements BowlingManager {
 
-    private static final Logger LOG = LogManager.getLogger(BowlingManager.class);
+    private static final Logger LOG = LogManager.getLogger(SinglePlayerBowlingManager.class);
 
     private static final int INVALID_NB_INPUT = -1;
 
     private static final BufferedReader INPUT_READER = new BufferedReader(new InputStreamReader(System.in));
 
+    @Override
     public void start() {
         String playerName = null;
         do {
@@ -29,7 +33,7 @@ public class BowlingManager {
             }
         } while(playerName == null || Strings.isBlank(playerName));
 
-        Player player = new Player(playerName);
+        Player player = new DefaultPlayer(playerName);
         LOG.info("Starting bowling session for : {}", playerName);
 
         int trailingIndex = 0, currentIndex = 0;
@@ -68,7 +72,6 @@ public class BowlingManager {
     }
 
     private boolean validate(final Frame currentFrame, final int nbPins) {
-        // TODO - DC : will need to adjust for last frame where you may have 10 or 20 more pins to drop.
         return nbPins <= currentFrame.getPinStanding() && nbPins >= 0;
     }
 
@@ -86,16 +89,6 @@ public class BowlingManager {
     private String readString(final String output) throws IOException {
         LOG.info("{}", output);
         return INPUT_READER.readLine();
-    }
-
-    public static void main(final String[] args) {
-        LOG.debug("Welcome to BKBowl");
-        BowlingManager bm = new BowlingManager();
-        try {
-            bm.start();
-        } catch (Exception e) {
-            LOG.error("mess up {}", e.toString());
-        }
     }
 
 }
