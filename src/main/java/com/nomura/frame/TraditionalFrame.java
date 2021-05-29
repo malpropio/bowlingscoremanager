@@ -50,6 +50,7 @@ public class TraditionalFrame implements Frame {
 
     @Override
     public boolean goNext() {
+        // TODO - DC : Fix this, should not try to go next on last frame.
         return hasStrike() || nbInput == MIN_NB_INPUT;
     }
 
@@ -60,6 +61,7 @@ public class TraditionalFrame implements Frame {
 
     @Override
     public void removePinCount(final int pinCount) {
+        // TODO - DC : Should add input validation here.
         if(!isComplete()) {
             if(pinStanding > 0) {
                 pinCounts[nbInput] = pinCount;
@@ -77,8 +79,7 @@ public class TraditionalFrame implements Frame {
         }
     }
 
-    @Override
-    public void addToScore(final int pinCount){
+    private void addToScore(final int pinCount){
         this.score += pinCount;
     }
 

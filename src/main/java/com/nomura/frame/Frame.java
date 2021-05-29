@@ -23,50 +23,37 @@ public interface Frame {
     boolean isComplete();
 
     /**
-     *
-     * @return
+     * @return true if we've hit the nb of tries for this frame or pinStanding == 0, false otherwise.
      */
     boolean goNext();
 
     /**
-     *
-     * @return
+     * @return max nb of roll for this frame.
      */
     int getMaxInputNb();
 
     /**
-     *
-     * @param pinCount
+     * @param pinCount roll count that be removed from standing ping count.
      */
     void removePinCount(int pinCount);
 
     /**
-     *
-     * @param pinCount
-     */
-    void addToScore(int pinCount);
-
-    /**
-     *
-     * @return
+     * @return index if this frame in the order of frames.
      */
     int getIndex();
 
     /**
-     *
-     * @return
+     * @return count of pin still standing.
      */
     int getPinStanding();
 
     /**
-     *
-     * @return
+     * @return current score of the frame.
      */
     int getScore();
 
     /**
-     *
-     * @param previousFrameScore
+     * @param previousFrameScore score of the previous indexed frame.
      */
     void setPreviousFrameScore(int previousFrameScore);
 }
