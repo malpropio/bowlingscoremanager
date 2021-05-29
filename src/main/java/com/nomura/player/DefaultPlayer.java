@@ -45,7 +45,7 @@ public class DefaultPlayer implements Player {
     public String toString() {
         return "Player{" +
                 "name=" + name + '\'' +
-                ", scoringFrames=" + Arrays.toString(scoringFrames) +
+                ", frames=" + Arrays.toString(scoringFrames) +
                 '}';
     }
 }
