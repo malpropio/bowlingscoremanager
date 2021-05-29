@@ -16,7 +16,7 @@ public class BowlingRunner {
         try {
             bm.start();
         } catch (Exception e) {
-            LOG.error("mess up {}", e.toString());
+            LOG.error("o o, seems like we ran into some prob {}", e.toString());
         }
     }
 
