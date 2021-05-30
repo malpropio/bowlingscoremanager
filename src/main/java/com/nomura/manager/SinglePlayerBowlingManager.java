@@ -36,33 +36,33 @@ public class SinglePlayerBowlingManager implements BowlingManager {
         Player player = new DefaultPlayer(playerName);
         LOG.info("Starting bowling session for : {}", playerName);
 
-        int trailingIndex = 0, currentIndex = 0;
+        int trailingIndex = 0, currentIndex = 0, nextTrailingIndex = 0;
         do {
             Frame currentFrame = player.getFrame(currentIndex);
-            Frame trailingFrame = player.getFrame(trailingIndex);
             int nbPins = readInt("Input your roll between 0 and " + currentFrame.getPinStanding());
             if(validate(currentFrame, nbPins)) {
                 for(int i = trailingIndex ; i <= currentIndex ; i++) {
-                    Frame f = player.getFrame(i);
-                    f.removePinCount(nbPins);
-                    Frame nextFrame;
-                    int nextIndex;
-                    if((nextIndex = i + 1) <= currentIndex && (nextFrame = player.getFrame(nextIndex)) != null) {
-                        transferScore(f, nextFrame);
+                    Frame indexedFrame = player.getFrame(i);
+                    indexedFrame.removePinCount(nbPins);
+                    int nextIndex = i + 1;
+
+                    if(nextIndex <= currentIndex && nextIndex < Frame.MAX_NB_FRAME) {
+                        transferScore(indexedFrame, player.getFrame(nextIndex));
+                        if(indexedFrame.isComplete()) {
+                            nextTrailingIndex = nextIndex;
+
+                        }
                     }
                 }
                 LOG.info(player);
 
-                if(trailingFrame.isComplete()) {
-                    trailingIndex++;
-                }
                 if(currentFrame.goNext() && (currentFrame.getIndex() + 1) < Frame.MAX_NB_FRAME) {
                     ++currentIndex;
                     transferScore(currentFrame, player.getFrame(currentIndex));
                 }
+                trailingIndex = nextTrailingIndex;
             }
         } while(!player.isGameComplete());
-
     }
 
     private void transferScore(final Frame from, final Frame to) {
