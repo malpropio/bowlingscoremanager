@@ -2,5 +2,7 @@
 /shelf/
 /workspace.xml
 
+*.jar
 .gradle
 build
+out
